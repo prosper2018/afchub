@@ -17,6 +17,8 @@ use App\Http\Controllers\AuthController;
 
 
 Route::middleware('api')->group(function () {
+    Route::get('/services', [AuthController::class, 'services']);
+    Route::get('/countries', [AuthController::class, 'countries']);
     Route::get('/companies', [AuthController::class, 'companies']);
     Route::post('/companies', [AuthController::class, 'companies']);
     Route::post('/login', [AuthController::class, 'login']);

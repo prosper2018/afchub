@@ -38,7 +38,7 @@ export default {
                     password: this.password,
                 });
                 localStorage.setItem('token', response.data.token);
-                this.$router.push('/');
+                this.$router.push('/dashboard');
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     this.errors = error.response.data.errors;

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('company_name');
             $table->string('company_email')->unique();
-            $table->text('services');
+            // $table->text('services');
             $table->string('country');
             $table->timestamps();
             $table->softDeletes();
@@ -25,7 +25,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
-            $table->string('image_path')->nullable();
+            $table->string('image_path');
             $table->string('email')->unique();
             $table->string('mobile')->unique();
             $table->string('address');

@@ -87,7 +87,22 @@ class AuthController extends Controller
 
     public function services()
     {
-        return response()->json(Service::whereNull('deleted_at')->get());
+        // $service = Service::query()
+        // ->select('services.*', DB::raw('(SELECT company_name FROM companies WHERE services.company_id = companies.id) AS company_name'))
+        // ->whereNull('deleted_at')->get();
+
+        // $companies = Company::whereNull('updated_at')->get();
+        // $service['companies'] = $companies;
+
+        $services = Service::with('company')
+            ->whereNull('deleted_at')
+            ->get();
+        
+        $response = [
+            'services' => $services,
+        ];
+
+        return response()->json($response);
     }
 
     public function countries()

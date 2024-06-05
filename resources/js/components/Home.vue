@@ -32,10 +32,7 @@
                 <div class="service-card" v-for="service in services" :key="service.id">
                     <h3>{{ service.name }}</h3>
                     <p>{{ service.description }}</p>
-                    <p><strong>Offered by:</strong></p>
-                    <ul>
-                        <li v-for="company in service.companies" :key="company.id">{{ company.name }}</li>
-                    </ul>
+                    <p><strong>Offered by:</strong> {{ service.company.company_name }}</p>
                 </div>
             </div>
         </section>
@@ -50,7 +47,8 @@ export default {
     data() {
         return {
             companies: [],
-            services: []
+            services: [],
+            error: []
         };
     },
     created() {
@@ -69,7 +67,11 @@ export default {
         async fetchServices() {
             try {
                 const response = await axios.get('/api/services');
-                this.services = response.data;
+                this.services = response.data.services;
+                               
+                this.companies.forEach(company => {
+                    company.services = this.services.filter(service => service.company_id === company.id);
+                });
             } catch (error) {
                 console.error('Error fetching services:', error);
             }
